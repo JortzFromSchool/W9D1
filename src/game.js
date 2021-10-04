@@ -53,7 +53,7 @@ Game.prototype.checkCollisions = function () {
         this.asteroids.forEach(ele2 => {
             if (ele != ele2) {
                 if (ele.isCollidedWith(ele2)){
-                    alert("Collision!");
+                    ele.collideWith(ele2);
                 };
             };
         });
@@ -63,6 +63,11 @@ Game.prototype.checkCollisions = function () {
 Game.prototype.step = function () {
     this.moveObjects();
     this.checkCollisions();
+}
+
+Game.prototype.remove = function (asteroid) {
+    const sliceIndex = this.asteroids.indexOf(asteroid);
+    this.asteroids = this.asteroids.slice(0, sliceIndex).concat(this.asteroids.slice(sliceIndex+1));
 }
 
 module.exports = Game
