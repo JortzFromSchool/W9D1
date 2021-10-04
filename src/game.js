@@ -1,4 +1,5 @@
 const Asteroid = require("./asteroid");
+const Ship = require("./ship");
 
 const DIM_X= 500;
 const DIM_Y= 500;
@@ -8,7 +9,11 @@ const NUM_ASTEROIDS= 5;
 function Game() {
     this.asteroids = [];
     this.addAsteroids(NUM_ASTEROIDS);
+    this.ship = new Ship(this.randompos());
+}
 
+Game.prototype.all_objects = function () {
+    return this.asteroids.concat([this.ship]);
 }
 
 Game.prototype.addAsteroids = function(num) {
@@ -21,13 +26,14 @@ Game.prototype.addAsteroids = function(num) {
 
 Game.prototype.draw = function(ctx) {
     ctx.clearRect(0, 0, DIM_X, DIM_Y);
-    this.asteroids.forEach(ele => {
+    this.all_objects.forEach(ele => {
         ele.draw(ctx);
     });
+
 }
 
 Game.prototype.moveObjects = function() {
-    this.asteroids.forEach(ele => {
+    this.all_objects.forEach(ele => {
         ele.move();
     });
 }
@@ -49,8 +55,8 @@ Game.prototype.wrap = function (pos) {
 }
 
 Game.prototype.checkCollisions = function () {
-    this.asteroids.forEach(ele => {
-        this.asteroids.forEach(ele2 => {
+    this.all_objects.forEach(ele => {
+        this.all_objects.forEach(ele2 => {
             if (ele != ele2) {
                 if (ele.isCollidedWith(ele2)){
                     ele.collideWith(ele2);
@@ -69,6 +75,16 @@ Game.prototype.remove = function (asteroid) {
     const sliceIndex = this.asteroids.indexOf(asteroid);
     this.asteroids = this.asteroids.slice(0, sliceIndex).concat(this.asteroids.slice(sliceIndex+1));
 }
+
+Game.prototype.randompos = function() {
+    let x = Math.floor(Math.random() * DIM_X);
+    let y = Math.floor(Math.random() * DIM_Y);
+    return [x,y];
+}
+
+
+
+
 
 module.exports = Game
 

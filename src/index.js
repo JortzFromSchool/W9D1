@@ -8,6 +8,8 @@ const gameView = require("./gameview");
 window.GameView = gameView;
 const game = require("./game");
 window.Game = game; 
+const ship = require("./ship");
+window.Game = ship; 
 
 
 console.log("webpack is working");
