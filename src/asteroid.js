@@ -6,11 +6,11 @@ const RADIUS = 5;
 
 
 function Asteroid(pos) {
-    this.color = COLOR;
-    this.radius = RADIUS;
+    // this.color = COLOR;
+    // this.radius = RADIUS;
     
     
-    MovingObject.call(this, pos, Util.randomVec(3), this.radius, this.color);
+    MovingObject.call(this, pos, Util.randomVec(3), RADIUS, COLOR);
     // debugger
 }
 Util.inherits(Asteroid, MovingObject);

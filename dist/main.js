@@ -15,7 +15,27 @@
   \*************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const MovingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\nconst Util = __webpack_require__(/*! ./util */ \"./src/util.js\");\n\nconst COLOR = \"#FF0000\";\nconst RADIUS = 5;\n\n\nfunction Asteroid(pos) {\n    this.color = COLOR;\n    this.radius = RADIUS;\n    \n    \n    MovingObject.call(this, pos, Util.randomVec(3), this.radius, this.color);\n    // debugger\n}\nUtil.inherits(Asteroid, MovingObject);\n\nmodule.exports = Asteroid;\n\n//# sourceURL=webpack://W9D1/./src/asteroid.js?");
+eval("const MovingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\nconst Util = __webpack_require__(/*! ./util */ \"./src/util.js\");\n\nconst COLOR = \"#FF0000\";\nconst RADIUS = 5;\n\n\nfunction Asteroid(pos) {\n    // this.color = COLOR;\n    // this.radius = RADIUS;\n    \n    \n    MovingObject.call(this, pos, Util.randomVec(3), RADIUS, COLOR);\n    // debugger\n}\nUtil.inherits(Asteroid, MovingObject);\n\nmodule.exports = Asteroid;\n\n//# sourceURL=webpack://W9D1/./src/asteroid.js?");
+
+/***/ }),
+
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const Asteroid = __webpack_require__(/*! ./asteroid */ \"./src/asteroid.js\");\n\nconst DIM_X= 500;\nconst DIM_Y= 500;\nconst NUM_ASTEROIDS= 5;\n\n\nfunction Game() {\n    this.asteroids = [];\n    this.addAsteroids(NUM_ASTEROIDS);\n\n}\n\nGame.prototype.addAsteroids = function(num) {\n    for (let i=0; i < num; i++) {\n        const x = Math.floor(Math.random()*DIM_X);\n        const y = Math.floor(Math.random()*DIM_Y);\n        this.asteroids.push(new Asteroid([x, y]));\n    }\n}\n\nGame.prototype.draw = function(ctx) {\n    ctx.clearRect(0, 0, DIM_X, DIM_Y);\n    this.asteroids.forEach(ele => {\n        ele.draw(ctx);\n    });\n}\n\nGame.prototype.moveObjects = function() {\n    this.asteroids.forEach(ele => {\n        ele.move();\n    });\n}\n\n\nmodule.exports = Game\n\n\n\n//# sourceURL=webpack://W9D1/./src/game.js?");
+
+/***/ }),
+
+/***/ "./src/gameview.js":
+/*!*************************!*\
+  !*** ./src/gameview.js ***!
+  \*************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\nfunction GameView(ctx) {\n    this.game = new Game();\n    this.ctx = ctx;\n\n}\n\nGameView.prototype.start = function() {\n    setInterval(function() {\n        this.game.moveObjects();\n        this.game.draw(this.ctx);\n    }.bind(this), 20);\n\n}\n\nmodule.exports = GameView\n\n//# sourceURL=webpack://W9D1/./src/gameview.js?");
 
 /***/ }),
 
@@ -25,7 +45,7 @@ eval("const MovingObject = __webpack_require__(/*! ./moving_object */ \"./src/mo
   \**********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const util = __webpack_require__(/*! ./util */ \"./src/util.js\");\nwindow.Util = util;\nconst movingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\nwindow.MovingObject = movingObject;\nconst asteroid = __webpack_require__(/*! ./asteroid */ \"./src/asteroid.js\");\nwindow.Asteroid = asteroid;\n\nconsole.log(\"webpack is working\");\n\n\nwindow.addEventListener(\"DOMContentLoaded\", function(){\n    const canvasEl = document.getElementsByTagName(\"canvas\")[0];\n    const ctx = canvasEl.getContext(\"2d\");\n});\n\n// canvasEl.height = window.innerHeight;\n// canvasEl.width = window.innerWidth;\n\n\n//# sourceURL=webpack://W9D1/./src/index.js?");
+eval("const util = __webpack_require__(/*! ./util */ \"./src/util.js\");\nwindow.Util = util;\nconst movingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\nwindow.MovingObject = movingObject;\nconst asteroid = __webpack_require__(/*! ./asteroid */ \"./src/asteroid.js\");\nwindow.Asteroid = asteroid;\nconst gameView = __webpack_require__(/*! ./gameview */ \"./src/gameview.js\");\nwindow.GameView = gameView;\nconst game = __webpack_require__(/*! ./game */ \"./src/game.js\");\nwindow.Game = game; \n\n\nconsole.log(\"webpack is working\");\n\n\nwindow.addEventListener(\"DOMContentLoaded\", function(){\n    const canvasEl = document.getElementsByTagName(\"canvas\")[0];\n    const ctx = canvasEl.getContext(\"2d\");\n    const gv = new GameView(ctx);\n    //gv.start();\n});\n\n// canvasEl.height = window.innerHeight;\n// canvasEl.width = window.innerWidth;\n\n\n//# sourceURL=webpack://W9D1/./src/index.js?");
 
 /***/ }),
 
