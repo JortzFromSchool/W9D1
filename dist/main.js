@@ -9,13 +9,23 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/asteroid.js":
+/*!*************************!*\
+  !*** ./src/asteroid.js ***!
+  \*************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const MovingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\nconst Util = __webpack_require__(/*! ./util */ \"./src/util.js\");\n\nconst COLOR = \"#FF0000\";\nconst RADIUS = 5;\n\n\nfunction Asteroid(pos) {\n    this.color = COLOR;\n    this.radius = RADIUS;\n    \n    \n    MovingObject.call(this, pos, Util.randomVec(3), this.radius, this.color);\n    // debugger\n}\nUtil.inherits(Asteroid, MovingObject);\n\nmodule.exports = Asteroid;\n\n//# sourceURL=webpack://W9D1/./src/asteroid.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
   \**********************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("window.Util = __webpack_require__(/*! ./util */ \"./src/util.js\");\nwindow.MovingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\n\nconsole.log(\"webpack is working\");\n\n\nwindow.addEventListener(\"DOMContentLoaded\", function(){\n    const canvasEl = document.getElementsByTagName(\"canvas\")[0];\n    const ctx = canvasEl.getContext(\"2d\");\n});\n\n// canvasEl.height = window.innerHeight;\n// canvasEl.width = window.innerWidth;\n\n\n//# sourceURL=webpack://W9D1/./src/index.js?");
+eval("const util = __webpack_require__(/*! ./util */ \"./src/util.js\");\nwindow.Util = util;\nconst movingObject = __webpack_require__(/*! ./moving_object */ \"./src/moving_object.js\");\nwindow.MovingObject = movingObject;\nconst asteroid = __webpack_require__(/*! ./asteroid */ \"./src/asteroid.js\");\nwindow.Asteroid = asteroid;\n\nconsole.log(\"webpack is working\");\n\n\nwindow.addEventListener(\"DOMContentLoaded\", function(){\n    const canvasEl = document.getElementsByTagName(\"canvas\")[0];\n    const ctx = canvasEl.getContext(\"2d\");\n});\n\n// canvasEl.height = window.innerHeight;\n// canvasEl.width = window.innerWidth;\n\n\n//# sourceURL=webpack://W9D1/./src/index.js?");
 
 /***/ }),
 

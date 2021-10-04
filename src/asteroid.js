@@ -4,15 +4,15 @@ const Util = require("./util");
 const COLOR = "#FF0000";
 const RADIUS = 5;
 
+
 function Asteroid(pos) {
-    Util.inherits(this, MovingObject);
-    // this.color = COLOR;
-    // this.radius = RADIUS; 
-    new MovingObject(pos, Util.randomVec(3), RADIUS, COLOR)
+    this.color = COLOR;
+    this.radius = RADIUS;
     
-
-
-
+    
+    MovingObject.call(this, pos, Util.randomVec(3), this.radius, this.color);
+    // debugger
 }
+Util.inherits(Asteroid, MovingObject);
 
-module.exports = Asteroid
+module.exports = Asteroid;

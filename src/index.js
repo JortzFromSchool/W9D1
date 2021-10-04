@@ -1,5 +1,9 @@
-window.Util = require("./util");
-window.MovingObject = require("./moving_object");
+const util = require("./util");
+window.Util = util;
+const movingObject = require("./moving_object");
+window.MovingObject = movingObject;
+const asteroid = require("./asteroid");
+window.Asteroid = asteroid;
 
 console.log("webpack is working");
 
